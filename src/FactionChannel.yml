@@ -1,0 +1,5 @@
+enabled: true
+name: Faction
+tag: '[{FACTION}]'
+listed: false
+alias: f

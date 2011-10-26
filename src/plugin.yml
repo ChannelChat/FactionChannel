@@ -1,0 +1,5 @@
+name: FactionChannel
+main: feildmaster.Modules.ChanChat.Faction.factions
+version: 1.0
+author: feildmaster
+depend: [ChannelChat, Factions]
