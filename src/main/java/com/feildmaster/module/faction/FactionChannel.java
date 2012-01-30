@@ -1,56 +1,88 @@
-package feildmaster.Modules.ChanChat.Faction;
+package com.feildmaster.module.faction;
 
-import com.feildmaster.chanchat.Chan.CustomChannel;
-import com.feildmaster.chanchat.Chat;
+import com.feildmaster.channelchat.Chat;
+import com.feildmaster.channelchat.channel.CustomChannel;
 import com.massivecraft.factions.FPlayer;
+import com.massivecraft.factions.FPlayers;
+import com.massivecraft.factions.Faction;
 import java.util.HashSet;
 import java.util.Set;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerChatEvent;
 
 public class FactionChannel extends CustomChannel {
-    private Set<String> members = null;
+    private Faction faction = null;
 
     protected FactionChannel(String name) {
         super(name);
     }
 
+    private void setFaction(Player player) {
+        if(player == null) {
+            faction = null;
+            return;
+        }
+        FPlayer p = FPlayers.i.get(player);
+
+        if(!p.hasFaction()) {
+            faction = null;
+            return;
+        }
+
+        faction = p.getFaction();
+    }
+
     public Set<String> getMembers(Player player) {
-        members = new HashSet<String>();
+        Set<String> members = super.getMembers(player);
+        setFaction(player);
 
-        if(FPlayer.get(player).hasFaction())
-            for(FPlayer p : FPlayer.get(player).getFaction().getFPlayers())
-                members.add(p.getPlayer().getName());
+        for(String p : new HashSet<String>(members))
+            if(faction != null) {
+                FPlayer fp = FPlayers.i.get(Bukkit.getPlayer(p));
+                if(!fp.hasFaction() || !fp.getFaction().equals(faction))
+                    members.remove(p);
+            } else
+                members.remove(p);
 
+        setFaction(null);
         return members;
     }
 
-    public void sendJoinMessage(Player player) { // Directly set active
-        Chat.getChannelManager().setActiveChan(player, getName());
-        player.sendMessage("Now talking in \""+getName()+".\"");
+    public void sendJoinMessage(Player player) {
+        setFaction(player);
+        if(faction == null) {
+            player.sendMessage(Chat.info("You have joined \""+getName()+"\""));
+            return;
+        }
+        super.sendJoinMessage(player);
+        setFaction(null);
     }
 
-    public void sendLeaveMessage(Player player) { // Do nothing
-    }
-
-    public Boolean isSenderMember(Player player) {
-        return super.isMember(player) && FPlayer.get(player).hasFaction();
+    public void sendLeaveMessage(Player player) {
+        setFaction(player);
+        if(faction == null) {
+            player.sendMessage(Chat.info("You have left \""+getName()+"\""));
+            return;
+        }
+        super.sendLeaveMessage(player);
+        setFaction(null);
     }
 
     public Boolean isMember(Player player) {
-        if(members == null) return super.isMember(player);
-        return super.isMember(player) && members.contains(player.getName());
+        if(faction == null) return super.isMember(player);
+        FPlayer fplayer = FPlayers.i.get(player);
+        return super.isMember(player) && fplayer.hasFaction() && fplayer.getFaction().equals(faction);
     }
 
     public void handleEvent(PlayerChatEvent event) {
-        members = getMembers(event.getPlayer());
-
+        setFaction(event.getPlayer());
+        if(faction == null) {
+            event.getPlayer().sendMessage(Chat.info("You do not have a faction."));
+            event.setCancelled(true);
+            return;
+        }
         super.handleEvent(event);
-
-        members = null;
-    }
-
-    public void callReload() {
-        factions.getplugin().reloadChannel();
+        setFaction(null);
     }
 }
