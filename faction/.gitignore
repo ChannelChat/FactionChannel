@@ -14,7 +14,7 @@
 .*.sw[a-p]
 
 # various other potential build files
-build
+/build
 /bin
 /dist
 /manifest.mf
