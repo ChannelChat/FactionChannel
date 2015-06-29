@@ -1,5 +1,0 @@
-name: ${name}
-main: com.feildmaster.module.faction.Faction
-version: ${version}
-author: feildmaster
-depend: [ChannelChat, Factions]
