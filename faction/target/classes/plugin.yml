@@ -1,5 +1,0 @@
-name: FactionChannel
-main: com.feildmaster.module.faction.Faction
-version: 2.0
-author: feildmaster, Foxtrek_64
-depend: [ChannelChat, Factions]
