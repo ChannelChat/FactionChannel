@@ -2,48 +2,61 @@ package com.feildmaster.module.faction;
 
 import com.feildmaster.channelchat.Chat;
 import com.feildmaster.channelchat.channel.CustomChannel;
-import com.massivecraft.factions.FPlayer;
-import com.massivecraft.factions.FPlayers;
-import com.massivecraft.factions.Faction;
+import com.massivecraft.factions.entity.MPlayer;
+import com.massivecraft.factions.entity.Faction;
 import java.util.HashSet;
 import java.util.Set;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerChatEvent;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 public class FactionChannel extends CustomChannel {
     private Faction faction = null;
+    private MPlayer mplayer;
 
-    protected FactionChannel(String name) {
+    protected FactionChannel(String name)
+    {
         super(name);
     }
 
-    private void setFaction(Player player) {
-        if(player == null) {
-            faction = null;
+    private void setFaction(Player player)
+    {
+    	player = player.getPlayer(); //get Bukkit player entity
+        mplayer = MPlayer.get(player); //Set Massive player to Bukkit player
+    	
+        if(player == null) //Did a player execute the command?
+        {
+            faction = null; //No player, no faction
             return;
         }
-        FPlayer p = FPlayers.i.get(player);
-
-        if(!p.hasFaction()) {
-            faction = null;
+        
+        if(!mplayer.hasFaction()) //Did a massiveplayer execute the command?
+        {
+        	//This method seems a bit redundant seeing as mplayer is player.
+        	//If player is no, mplayer will be no.
+        	//But, perhaps there's a purpose for this. Leaving in.
+            faction = null; 
             return;
         }
 
-        faction = p.getFaction();
+        faction = mplayer.getFaction(); //Everything checks out
     }
 
-    public Set<String> getMembers(Player player) {
+    public Set<String> getMembers(Player player)
+    {
         Set<String> members = super.getMembers(player);
         setFaction(player);
 
         for(String p : new HashSet<String>(members))
-            if(faction != null) {
-                FPlayer fp = FPlayers.i.get(Bukkit.getPlayer(p));
+            if(faction != null)
+            {
+                MPlayer fp = MPlayer.get(player);
                 if(!fp.hasFaction() || !fp.getFaction().equals(faction))
                     members.remove(p);
-            } else
+            }
+            else
+            {	
                 members.remove(p);
+            }
 
         setFaction(null);
         return members;
@@ -71,11 +84,11 @@ public class FactionChannel extends CustomChannel {
 
     public Boolean isMember(Player player) {
         if(faction == null) return super.isMember(player);
-        FPlayer fplayer = FPlayers.i.get(player);
-        return super.isMember(player) && fplayer.hasFaction() && fplayer.getFaction().equals(faction);
+        MPlayer mplayer = MPlayer.get(player);
+        return super.isMember(player) && mplayer.hasFaction() && mplayer.getFaction().equals(faction);
     }
 
-    public void handleEvent(PlayerChatEvent event) {
+    public void handleEvent(AsyncPlayerChatEvent event) {
         setFaction(event.getPlayer());
         if(faction == null) {
             event.getPlayer().sendMessage(Chat.info("You do not have a faction."));
