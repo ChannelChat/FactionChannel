@@ -27,3 +27,8 @@
 *.ipr
 *.iws
 .idea/
+
+# Etc Files
+../.metadata
+../.recommenders
+../.git

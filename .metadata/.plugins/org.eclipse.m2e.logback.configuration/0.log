@@ -434,3 +434,16 @@
 2015-06-29 05:46:17,243 [Worker-20] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2 resources
 2015-06-29 05:46:17,249 [Worker-20] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
 2015-06-29 05:46:17,249 [Worker-20] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Devin Duanne\Documents\GitHub\FactionChannel\faction\src\test\resources
+2015-06-29 05:54:31,408 [Worker-25] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.feildmaster.module.faction:FactionChannel:2.0 @ C:\Users\Devin Duanne\Documents\GitHub\FactionChannel\faction\pom.xml.
+2015-06-29 05:54:33,042 [Worker-25] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-06-29 05:54:33,043 [Worker-25] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2015-06-29 05:54:33,045 [Worker-25] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-06-29 05:54:33,046 [Worker-25] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Devin Duanne\Documents\GitHub\FactionChannel\faction\src\test\resources
+2015-06-29 05:54:37,812 [Worker-26] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-06-29 05:54:37,813 [Worker-26] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2 resources
+2015-06-29 05:54:37,819 [Worker-26] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-06-29 05:54:37,820 [Worker-26] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Devin Duanne\Documents\GitHub\FactionChannel\faction\src\test\resources
+2015-06-29 05:54:39,697 [Worker-27] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-06-29 05:54:39,699 [Worker-27] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2 resources
+2015-06-29 05:54:39,935 [Worker-27] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2015-06-29 05:54:39,936 [Worker-27] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Devin Duanne\Documents\GitHub\FactionChannel\faction\src\test\resources
