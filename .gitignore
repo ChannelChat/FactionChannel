@@ -1,23 +1,23 @@
 # Eclipse stuff
-/.classpath
-/.project
-/.settings
+factions/.classpath
+factions/.project
+factions/.settings
 
 # netbeans
 /nbproject
 
 # we use maven!
-/build.xml
-/target
+factions/build.xml
+factions/target
 
 # vim
 .*.sw[a-p]
 
 # various other potential build files
-/build
-/bin
-/dist
-/manifest.mf
+factions/build
+factions/bin
+factions/dist
+factions/manifest.mf
 
 # Mac filesystem dust
 /.DS_Store
@@ -29,6 +29,6 @@
 .idea/
 
 # Etc Files
-../.metadata
-../.recommenders
-../.git
+/.metadata
+/.recommenders
+/.git
